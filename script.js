@@ -34,11 +34,22 @@ const CONFIG = {
   drawing: "assets/images/drawing.webp",
 
   letterText: `My Dearest {{name}},
-
-I was thinking about what to write to you and honestly, I don't even know how to put everything into words gosh rhian hehehe. But there's one thing that i really want you to know today lovie.
+I was thinking about what to write to you and honestly, I don't know how to say everything that i am feeling rhian hehehe. But there's one thing that i really want you to know today lovie.
 I know you've told me before that your birthday doesn't really feel that special, especially because there were times when even people from your family forgot about it. And gosh, baby, that honestly makes me a little sad because you deserve to feel remembered.
 So I want to tell you something.
 As long as I live, you won't be forgotten. Ever!
+
+Earlier when you said lovie, that this day isn't special, or if you could just skip it altogether, maybe birthday have never felt the way they're supposed to feel for you, but let me have this one thing to be excited about this day exists, 
+
+Because if it didn't exists, then neither would you, I wouldn't have my yannie,t to annoy, to bully, to spoil, so steal kisseys sneakily when she's sleeping hahaha
+
+And I know you might look at this day and think, “It's nothing special.” But rhian, to me, it is the day the girl I deeply love was born.
+even if you don't feel like special about it, I hope I can at least make your day little lighter today hehe, even if you don't get excited about it, I'll get excited for you, i wanna celebrate my yannie,
+
+also lovie you don't have to do anything extraordinary today to make today special. You don't have to throw a big celebration. You don't even have to feel excited about getting older.
+You being born was already the special thing that happened on this day.
+
+hmm ijust wish i can give the atleast bring little happiness to your face today heheh because you deserve it all babe, I can't go back and give younger version of you every birthday she deserved. But I can love the girl she grew into.
 
 Your birthday is going to be special to me simply because it's your birthday. It's the day my Yannie my Rhian was born.
 i don't want you to ever feel like you need to do something amazing for your birthday to make it worth celebrating.
@@ -46,7 +57,10 @@ You being born is already enough reason for me.
 
 So even if sometimes you feel unnoticed, or you feel like nobody remembers, I hope you remember that there's someone who does Mahal😁.
 
-really hope this next year is kinder to you, baby. I hope you become more confident in yourself. I hope you get to experience things that make you genuinely happy. I hope you achieve the things you're working so hard for. And I hope you realize more and more that you're worth so much more than the doubts you sometimes have about yourself.
+and  lovie I also think about your momma. I wish she could see the woman her little girl has grown into. I can't speak for her, baby, but I truly believe she would be so proud of you. Proud of how far you've come, of the heart you have, and of the person you've become.😁
+Even if it's just another day to you, it's not just another day to me.
+
+I really hope this next year is kinder to you, baby. I hope you become more confident in yourself. I hope you get to experience things that make you genuinely happy. I hope you achieve the things you're working so hard for. And I hope you realize more and more that you're worth so much more than the doubts you sometimes have about yourself.
 And whenever you forget that...
 I'll remind you again and again and again until you start believing it hehe.
 
