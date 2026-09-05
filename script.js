@@ -92,7 +92,7 @@ Happy Birthday Rhiannie, My Love, I Love You So Much ❤️
     {
       title: "Yellow",
       artist: "By Coldplay",
-      file: "assets/audio/Coldplay - Yellow (Lyrics).mp3",
+      file: "assets/audio/Coldplay - Yellow (Official Video).mp3",
       message:
         "I look at the moon sometimes and wonder if you're looking at it too. That's the thing about distance, it makes the smallest shared things feel like everything",
     },
