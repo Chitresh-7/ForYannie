@@ -41,7 +41,7 @@ As long as I live, you won't be forgotten. Ever!
 
 Earlier when you said lovie, that this day isn't special, or if you could just skip it altogether, maybe birthday have never felt the way they're supposed to feel for you, but let me have this one thing to be excited about this day exists, 
 
-Because if it didn't exists, then neither would you, I wouldn't have my yannie,t to annoy, to bully, to spoil, so steal kisseys sneakily when she's sleeping hahaha
+Because if it didn't exists, then neither would you, I wouldn't have my yannie,t to annoy, to bully, to spoil, to steal kisseys sneakily when she's sleeping hahaha
 
 And I know you might look at this day and think, “It's nothing special.” But rhian, to me, it is the day the girl I deeply love was born.
 even if you don't feel like special about it, I hope I can at least make your day little lighter today hehe, even if you don't get excited about it, I'll get excited for you, i wanna celebrate my yannie,
@@ -461,7 +461,7 @@ let letterVoiceBtn = null;
 
 function buildLetterVoice() {
   letterVoice = new Audio(
-    "assets/audio/Bruno Mars - Just The Way You Are (Official Music Video).mp3",
+    "assets/audio/letter-reading.aac",
   );
   letterVoiceBtn = document.getElementById("letter-player-btn");
 
