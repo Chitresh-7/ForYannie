@@ -834,6 +834,7 @@ window.addEventListener("DOMContentLoaded", () => {
   buildAlbum();
   buildSongs();
   buildDrawingAndLetter();
+  buildLetterVoice();
   buildRoses();
   buildCake();
 
