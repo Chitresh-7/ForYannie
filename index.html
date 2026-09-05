@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Happy Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Allura&family=Great+Vibes:ital@0;1&family=Dancing+Script:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=EB+Garamond:ital@0;1&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ===================== OPENING ===================== -->
+    <section id="screen-opening" class="screen active">
+      <div class="screen-inner">
+        <div class="opening-card-wrap" onclick="showScreen('hub')">
+          <img class="kraft-bg" src="assets/decor/kraft-card.png" alt="" />
+          <div class="opening-stamps">
+            <img
+              class="stamp-image stamp-1"
+              src="assets/decor/stamp2.png"
+              alt=""
+            />
+            <img
+              class="stamp-image stamp-2"
+              src="assets/decor/stamp1.png"
+              alt=""
+            />
+          </div>
+          <div class="opening-card-content">
+            <div class="opening-title script" id="opening-line1"></div>
+            <div class="opening-title script" id="opening-line2"></div>
+          </div>
+          <img class="opening-lily sway" src="assets/decor/lily.png" alt="" />
+          <img class="opening-deco" src="assets/decor/dog-reading.png" alt="" />
+        </div>
+        <button
+          class="tap-continue"
+          onclick="
+            event.stopPropagation();
+            transitionToHub();
+          "
+        >
+          Tap to continue ♡
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== HUB ===================== -->
+    <section id="screen-hub" class="screen bg-plaid">
+      <img
+        class="hub-torn-frame"
+        src="assets/decor/torn-frame.png"
+        alt="torn-frame"
+      />
+      <div class="screen-inner">
+        <div class="gift-grid-wrap">
+          <img class="hub-cloud" src="assets/decor/cloud2.png" alt="" />
+
+          <div class="hub-cloud-text">
+            Click each icon<br />
+            to open a gift! ♡
+          </div>
+          <img
+            class="hub-gift gift-songs"
+            src="assets/decor/gift-songs.png"
+            alt="Songs"
+            onclick="showScreen('music')"
+          />
+
+          <img
+            class="hub-gift gift-panda"
+            src="assets/decor/gift-panda.png"
+            alt="Drawing"
+            onclick="showScreen('drawing')"
+          />
+
+          <img
+            class="hub-gift gift-photos"
+            src="assets/decor/gift-photos.png"
+            alt="Photos"
+            onclick="showScreen('photos')"
+          />
+
+          <img
+            class="hub-gift gift-roses"
+            src="assets/decor/gift-roses.png"
+            alt="Roses"
+            onclick="showScreen('roses')"
+          />
+
+          <img
+            class="hub-gift gift-letter"
+            src="assets/decor/gift-letter.png"
+            alt="Letter"
+            onclick="showScreen('letter')"
+          />
+
+          <img
+            class="hub-gift gift-cake"
+            src="assets/decor/gift-cake.png"
+            alt="Cake"
+            onclick="showScreen('cake')"
+          />
+
+          <div class="hub-center-cat">
+            <img src="assets/decor/hub-cat.png" alt="cat" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== GIFT 1: PHOTOS ===================== -->
+    <!-- ====================== GIFT 1: PHOTOS ====================== -->
+
+    <section id="screen-photos" class="screen">
+      <!-- Background -->
+      <img class="photos-bg" src="assets/decor/photos-bg.png" alt="" />
+
+      <!-- Torn paper overlay -->
+      <img class="photos-torn-frame" src="assets/decor/torn-frame.png" alt="" />
+
+      <div class="screen-inner">
+        <div class="gift-header">
+          <button class="back-btn" onclick="showScreen('hub')">×</button>
+        </div>
+
+        <div class="photos-layout">
+          <div class="photos-side">
+            <div class="photos-heading display">
+              My favorite
+              <span class="script" style="font-size: 1.5em">Photos</span> of My
+              Girl
+            </div>
+
+            <img
+              class="photo-cat-heart photo-cat-baby"
+              src="assets/decor/smol-cat.png"
+              alt=""
+            />
+
+            <img
+              class="photo-cat-heart photo-cat-adult"
+              src="assets/decor/adult-cat.png"
+              alt=""
+            />
+
+            <img class="photo-pendant" src="assets/decor/pendant.png" alt="" />
+          </div>
+
+          <div class="album-wrap">
+            <img class="album-bg" src="assets/decor/photo-album.png" alt="" />
+
+            <div id="album-slots"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ===================== GIFT 2: MUSIC ===================== -->
+    <!-- ===================== GIFT 2: MUSIC ===================== -->
+
+    <section id="screen-music" class="screen">
+      <div class="music-page">
+        <img
+          class="music-rolled-paper"
+          src="assets/decor/rolled-paper.png"
+          alt=""
+        />
+        <!-- MAIN MUSIC PAGE BACKGROUND -->
+        <img class="music-bg" src="assets/decor/music-bg.png" alt="" />
+
+        <!-- VINYL -->
+        <img class="music-vinyl" src="assets/decor/vinyl.png" alt="" />
+
+        <!-- SONG TITLE ARTWORK -->
+        <img
+          class="music-title-art"
+          src="assets/decor/songs-title.png"
+          alt="Songs that remind me of You"
+        />
+
+        <!-- CATS -->
+        <img class="music-cats" src="assets/decor/cats-bow.png" alt="" />
+
+        <!-- NOTEBOOK -->
+        <div class="music-notebook">
+          <img
+            class="music-notebook-bg"
+            src="assets/decor/notebook.png"
+            alt=""
+          />
+
+          <!-- JavaScript puts songs here -->
+          <div class="notebook-song-list" id="song-list"></div>
+        </div>
+        <div class="song-message-scroll" id="song-message-scroll">
+          <img
+            class="music-rolled-paper"
+            src="assets/decor/rolled-paper.png"
+            alt=""
+          />
+          <div class="scroll-paper">
+            <div class="scroll-message" id="song-message"></div>
+          </div>
+        </div>
+
+        <!-- BACK BUTTON -->
+        <button class="music-back-btn" onclick="showScreen('hub')">←</button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+     GIFT 3: DRAWING
+     ========================================================= -->
+
+    <section id="screen-drawing" class="screen bg-velvet">
+      <div class="drawing-page">
+        <!-- VELVET BACKGROUND -->
+        <img class="drawing-bg" src="assets/decor/drawing-bg.png" alt="" />
+
+        <!-- FULL PAGE TORN PAPER BORDER -->
+        <img
+          class="drawing-torn-paper"
+          src="assets/decor/torn-frame.png"
+          alt=""
+        />
+
+        <!-- MAIN DRAWING + FRAME
+         Your drawing is already inside this PNG -->
+        <div class="drawing-frame">
+          <img
+            class="drawing-frame-img"
+            src="assets/decor/drawing-frame.png"
+            alt="Birthday drawing for Rhian"
+          />
+        </div>
+
+        <!-- RED FLOWER -->
+        <img class="drawing-flower" src="assets/decor/red-flower.png" alt="" />
+
+        
+
+        <!-- BOTTOM RIGHT STAMP + CAKE -->
+        <div class="drawing-stamp">
+          <img
+            class="drawing-stamp-img"
+            src="assets/decor/stamp-paper.png"
+            alt=""
+          />
+          <!-- RIGHT GALLERY CARD -->
+        <div class="gallery-card">
+          <img
+            class="gallery-card-img"
+            src="assets/decor/gallery-card.png"
+            alt=""
+          />
+        </div>
+
+        <!-- BACK -->
+        <button
+          class="back-btn drawing-back"
+          onclick="showScreen('hub')"
+          type="button"
+        >
+          ←
+        </button>
+      </div>
+    </section>
+
+    <!-- ===================== GIFT 4: LETTER ===================== -->
+    <section id="screen-letter" class="screen">
+      <!-- Torn heart-paper corner -->
+      <img
+        class="letter-torn-corner"
+        src="assets/decor/letter-torn-corner.png"
+        alt=""
+      />
+
+      <div class="letter-page">
+        <!-- Main letter frame -->
+        <img class="letter-frame" src="assets/decor/letter-frame.png" alt="" />
+
+        <!-- Letter content -->
+        <div class="letter-content">
+          <h2 class="letter-title script">Message for My Love</h2>
+
+          <div class="letter-paper-text" id="letter-text"></div>
+          <div class="letter-scroll-hint" id="letter-scroll-hint">↓ Scroll</div>
+
+          <div class="letter-signoff" id="letter-signoff"></div>
+        </div>
+
+        <!-- Top-right decorations -->
+        <img
+          class="letter-envelope"
+          src="assets/decor/envelope-sealed.png"
+          alt=""
+        />
+
+        <img class="letter-dove" src="assets/decor/dove.png" alt="" />
+
+        <div class="letter-note-wrap">
+          <span>P.S. I love u</span>
+        </div>
+
+        <!-- Bottom-left decoration -->
+        <img class="letter-lily" src="assets/decor/redlily.png" alt="" />
+
+        <!-- Back button -->
+        <button class="back-btn letter-back" onclick="showScreen('hub')">
+          ×
+        </button>
+        <div class="letter-voice-player">
+          <!-- Your decorative PNG frame -->
+          <img
+            class="letter-player-frame"
+            src="assets/decor/song-bar.png"
+            alt=""
+          />
+
+          <div class="letter-player-content">
+            <!-- Small image -->
+            <img
+              class="letter-player-cover"
+              src="assets/images/letter-photo.jpeg"
+              alt=""
+            />
+
+            <div class="letter-player-info">
+              <div class="letter-player-title">Hear me say it to you ♡</div>
+
+              <div class="letter-player-subtitle">
+                A little something from me
+              </div>
+            </div>
+
+            <button
+              class="letter-player-button"
+              id="letter-player-btn"
+              type="button"
+            >
+              ▶
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Letter content -->
+
+  <!-- =========================================================
+     GIFT 5: MOMENTS / ROSES
+     ========================================================= -->
+
+<section id="screen-roses" class="screen">
+
+  <div class="moments-page">
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <img
+      class="moments-bg"
+      src="assets/decor/plaid-bg.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         TITLE
+         ===================================================== -->
+
+    <div class="moments-heading">
+
+  <span>For my</span>
+
+  <span class="moments-heading-script">
+    Debutante
+  </span>
+
+  <span class="moments-heading-adore">
+    the girl
+  </span>
+
+  <span class="moments-heading-adore">
+    I Deeply
+  </span>
+
+  <span class="moments-heading-adore">
+    Adore
+  </span>
+
+</div>
+
+
+    <!-- =====================================================
+         TOP-RIGHT ENVELOPE
+         ===================================================== -->
+
+    <img
+      class="moments-envelope"
+      src="assets/decor/envelope-sealed.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         BIRD
+         ===================================================== -->
+
+    <img
+      class="moments-bird"
+      src="assets/decor/dove.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         MAIN FRAME
+         ===================================================== -->
+
+    <div class="moments-frame">
+
+      <!-- Your frame PNG -->
+      <img
+        class="moments-frame-img"
+        src="assets/decor/moments-frame.png"
+        alt=""
+      >
+
+      <!-- =================================================
+           PHOTO CAROUSEL
+           ================================================= -->
+
+      <div class="moments-photo-area">
+
+        <div
+          class="moments-track"
+          id="rose-track"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         LEFT FLOWER
+         ===================================================== -->
+
+    <img
+      class="moments-flower-left"
+      src="assets/decor/flower-right.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         RIGHT FLOWERS
+         ================================================= -->
+
+    <img
+      class="moments-flower-right"
+      src="assets/decor/flower-left.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         SMALL DECORATIVE FLOWER
+         ===================================================== -->
+
+    <img
+      class="moments-flower-small"
+      src="assets/decor/lily.png"
+      alt=""
+    />
+
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <div class="moments-navigation">
+
+      <button
+        class="moments-nav-btn"
+        type="button"
+        onclick="roseNav(-1)"
+      >
+        ← Previous
+      </button>
+
+      <div class="moments-heart">
+        ♥
+      </div>
+
+      <button
+        class="moments-nav-btn"
+        type="button"
+        onclick="roseNav(1)"
+      >
+        Next →
+      </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         IMAGE COUNTER
+         ===================================================== -->
+
+    <div
+      class="moments-count"
+      id="rose-count"
+    >
+      1 / 18
+    </div>
+
+
+    <!-- =====================================================
+         BACK BUTTON
+         ===================================================== -->
+
+    <button
+      class="moments-back"
+      type="button"
+      onclick="showScreen('hub')"
+    >
+      ←
+    </button>
+
+  </div>
+
+</section>
+
+    <!-- ===================== GIFT 6: CAKE ===================== -->
+    <section id="screen-cake" class="screen">
+      <div class="cake-white"></div>
+      <div class="cake-red-edge"></div>
+      <div class="screen-inner">
+        <div class="gift-header" style="justify-content: center">
+          <button
+            class="back-btn"
+            style="position: absolute; left: 20px"
+            onclick="showScreen('hub')"
+          >
+            ←
+          </button>
+          <h2 class="gift-title script" style="color: var(--maroon)">
+            Make a wish
+          </h2>
+        </div>
+        <div class="cake-wrap">
+          <svg viewBox="0 0 220 170" style="width: 100%">
+            <ellipse
+              cx="110"
+              cy="158"
+              rx="100"
+              ry="10"
+              fill="#4a0f18"
+              opacity=".35"
+            />
+            <rect
+              x="30"
+              y="95"
+              width="160"
+              height="55"
+              rx="6"
+              fill="#f7e6c4"
+              stroke="#b6893f"
+              stroke-width="2"
+            />
+            <rect
+              x="30"
+              y="95"
+              width="160"
+              height="14"
+              fill="#fff"
+              opacity=".5"
+            />
+            <rect
+              x="40"
+              y="60"
+              width="140"
+              height="42"
+              rx="6"
+              fill="#9c2a37"
+              stroke="#b6893f"
+              stroke-width="2"
+            />
+            <rect
+              x="40"
+              y="60"
+              width="140"
+              height="10"
+              fill="#fff"
+              opacity=".3"
+            />
+            <path
+              d="M35,60 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0 q7,-14 14,0"
+              fill="none"
+              stroke="#f7e6c4"
+              stroke-width="6"
+              stroke-linecap="round"
+            />
+            <circle cx="60" cy="58" r="4" fill="#c23a3a" />
+            <circle cx="95" cy="52" r="4" fill="#c23a3a" />
+            <circle cx="130" cy="58" r="4" fill="#c23a3a" />
+            <circle cx="160" cy="52" r="4" fill="#c23a3a" />
+          </svg>
+          <div id="candles"></div>
+        </div>
+        <button class="mic-btn" id="mic-btn" onclick="enableMic()">
+          🎙 Blow into your mic to light out the candles
+        </button>
+        <p class="mic-hint">(no mic access? tap the candles instead)</p>
+        <div class="cake-congrats display" id="cake-congrats">
+          Happy Birthday, my love! 🎉
+        </div>
+      </div>
+    </section>
+    <!-- ================= POST CREDITS ================= -->
+<section id="post-credits" class="post-credits-screen">
+
+  <!-- Movie credits -->
+  <div class="credits-scroll" id="credits-scroll">
+
+    <div class="credits-title">
+      <span>THE CASE OF</span>
+      <strong>RHIAN VIEL</strong>
+    </div>
+
+    <div class="credit-spacer"></div>
+
+    <div class="credit-section">
+      <p class="credit-label">CASE FILE</p>
+      <h2>#158</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Day</p>
+      <h2>Saturday 6 September 2008</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Birth-Time</p>
+      <h2>9 AM</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Days-Alive</p>
+      <h2>6573</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Hours Alive</p>
+      <h2>157,752</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Weeks Alive</p>
+      <h2>939</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Birthdays</p>
+      <h2>17</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">HeartBeats</p>
+      <h2>662,558,400</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Breaths Taken</p>
+      <h2>141,976,800</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Hours Slept</p>
+      <h2>52,584</h2>
+    </div>
+    
+    <div class="credit-section">
+      <p class="credit-label">Times Around the Sun</p>
+      <h2>17 Orbits</h2>
+    </div>
+    <div class="credit-section">
+      <h2>HOW WAS LIFE WHEN YOU WERE BORN: </h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Music</p>
+      <h2>#1 Song On the Day You Were Born Disturbia By Rihanna</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Cinema</p>
+      <h2>Box Office Hit - The Dark Knight</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Best Selling Car On the Day</p>
+      <h2>Ferrari F-150</h2>
+    </div>
+    <div class="credit-section">
+      <p class="credit-label">Number 1 Book</p>
+      <h2>The Hunger Games By Suzanne Collins</h2>
+    </div>
+    <div class="credit-section">
+      <h2>BEHIND THE SCENES
+        </h2>
+        <p class="credit-label"> This production involved:<br>
+
+        • A concerning amount of screenshots<br><br>
+
+        • Several "wait, let me fix this"<br><br>
+
+        • Too many open tabs<br><br>
+
+        • And one deadline that was<br>
+        taken very personally</p>
+    </div>
+    <div class="credit-section">
+      <h2>PRODUCTION TEAM
+      </h2>
+       <p class="credit-label">• Chitresh<br><br>
+          • Chitresh's Heart<br><br>
+          • Chitresh's Laptop That Yannie Hates</p>
+    </div>
+
+    
+
+
+
+    <div class="credit-section fact-with-image">
+      <img src="assets/images/virgo.jpeg" alt="">
+      <div>
+        <p class="credit-label">ZODIAC RECORD</p>
+        <h2>VIRGO</h2>
+        <p>Known for being thoughtful, caring, practical, principled<br>
+          Working Tirelessly, Perfectionist<br>
+         and suspiciously adorable.</p>
+      </div>
+    </div>
+
+    <div class="credit-section fact-with-image">
+      <img src="assets/images/rat.jpeg" alt="">
+      <div>
+        <p class="credit-label">CHINESE ZODIAC</p>
+        <h2>RAT</h2>
+        <p>Intelligent. Charming.<br>
+        Clever, resourceful and charming — the Rat makes the most of every opportunity..</p>
+      </div>
+    </div>
+
+    <div class="credit-section fact-with-image">
+      <img src="assets/images/sapphire.jpeg" alt="">
+      <div>
+        <p class="credit-label">BIRTHSTONE</p>
+        <h2>SAPPHIRE</h2>
+        <p>Emblem of wisdom, loyalty, and nobility.</p>
+      </div>
+    </div>
+
+    <div class="credit-section fact-with-image">
+      <img src="assets/images/moon.jpeg" alt="">
+      <div>
+        <p class="credit-label">BIRTH MOON</p>
+        <h2>WAXING CRESCENT</h2>
+        <p>You were born under a Waxing Crescent Moon — <br>a time of intention-setting, growth, and building momentum.</p>
+      </div>
+    </div>
+
+    <div class="credit-section">
+      <p class="credit-label">AGE</p>
+      <h2>18</h2>
+      <p>Officially an adult.</p>
+      <p>Unfortunately, this comes with consequences.</p>
+    </div>
+
+    <div class="credit-section">
+      <p class="credit-label">KNOWN OFFENSES</p>
+      <h2>EXCESSIVE ADORABLE</h2>
+      <p>Stealing my heart</p>
+    </div>
+
+    <div class="credit-section final-credit">
+      <p>After careful investigation...</p>
+      <h1>THE VERDICT IS IN.</h1>
+    </div>
+
+  </div>
+
+  <!-- =====================================================
+     POLICE / ARREST REVEAL
+===================================================== -->
+
+<div id="police-reveal" class="police-reveal">
+
+  <!-- Police image appears FIRST -->
+  <img
+    src="assets/images/police.png"
+    class="police-image"
+    id="police-image"
+    alt="Police"
+  />
+
+  <!-- Arrest dialogue -->
+  <div class="arrest-text">
+
+    <h1 id="arrest-title">
+      YOU'RE UNDER ARREST.
+    </h1>
+
+    <p class="arrest-line">
+      Rhian Viel, you're 18 now...
+    </p>
+
+    <p class="arrest-line">
+      So technically...
+    </p>
+
+    <p class="arrest-line">
+      We can finally arrest you.
+    </p>
+
+    <p class="arrest-line arrest-final">
+      For being dangerously cute.
+    </p>
+
+  </div>
+
+  <!-- FINAL CASE FILE SLAP -->
+  <img
+    id="under-arrest-file"
+    class="under-arrest-file"
+    src="assets/images/case-file.png"
+    alt="Rhian Viel under arrest case file"
+  />
+
+</div>
+</section>
+
+<!-- ================= AUDIO ================= -->
+
+<audio id="post-credit-music" preload="auto">
+  <source
+    src="assets/audio/HAUSER - Mia & Sebastian’s Theme - La La Land.mp3"
+    type="audio/mpeg"
+  />
+</audio>
+
+<audio id="police-siren" preload="auto">
+  <source
+    src="assets/audio/Police Whistle Two Sharp Blows.undefined"
+    type="audio/mpeg"
+  />
+</audio>
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
+
+</body>
+</html>

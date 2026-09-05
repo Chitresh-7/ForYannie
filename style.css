@@ -1,0 +1,4583 @@
+/* =========================================================================
+   CONFIG-DRIVEN GIRLFRIEND BIRTHDAY SITE — v3 (your own Canva assets)
+   Decorative art (dove, envelope, lily, butterfly, dog, cats, vinyl, album,
+   notebook, frames, plaid/lace backgrounds) lives in /assets/decor and is
+   already wired in below. Your own content — the 4 photos, the drawing,
+   18 rose photos, and songs — go in /assets/images and /assets/audio.
+   Personalize text/names/songs in the CONFIG object near the <script>.
+   ========================================================================= */
+
+:root {
+  --maroon-deep: #3d0c13;
+  --maroon: #7a1620;
+  --maroon-mid: #8f2431;
+  --cream: #f6ecd9;
+  --cream-dark: #ead9b8;
+  --gold: #b6893f;
+  --ink: #3a2313;
+  --shadow: 0 10px 28px rgba(15, 3, 3, 0.5);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+body {
+  font-family: "EB Garamond", serif;
+  color: var(--ink);
+  background: var(--maroon-deep);
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+img {
+  max-width: 500%;
+  display: block;
+}
+.script {
+  font-family: "Allura", cursive;
+}
+.display {
+  font-family: "Playfair Display", serif;
+}
+.typewriter {
+  font-family: "Special Elite", monospace;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes flicker {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1) rotate(-2deg);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.08) rotate(3deg);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------------- screens ---------------- */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: none;
+  overflow-y: auto;
+  background-size: cover;
+  background-position: center;
+}
+.screen.active {
+  display: block;
+}
+.screen-inner {
+  min-height: 100%;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: clamp(20px, 6vw, 40px) clamp(16px, 5vw, 30px) 60px;
+  position: relative;
+  animation: fadeInUp 0.6s ease both;
+  z-index: 1;
+}
+.bg-plaid {
+  background-image: url("assets/decor/plaid-bg.png");
+  background-color: var(--maroon);
+}
+.bg-ribbed {
+  background-color: var(--maroon-deep);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.18) 0 2px,
+    rgba(255, 255, 255, 0.03) 2px 6px
+  );
+}
+.bg-velvet {
+  background-color: var(--maroon-deep);
+  background-image:
+    radial-gradient(
+      ellipse at 28% 15%,
+      rgba(255, 255, 255, 0.09),
+      transparent 55%
+    ),
+    repeating-linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.02) 0 3px,
+      transparent 3px 9px
+    );
+}
+.bg-split {
+  background: linear-gradient(var(--cream) 0 46%, var(--maroon) 46% 100%);
+}
+
+/* full-bleed decorative frame overlay (transparent-centre PNGs) */
+.frame-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ---------------- shared bits ---------------- */
+.heart-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--maroon-mid);
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow);
+}
+.torn-card {
+  position: relative;
+  background: var(--cream);
+  padding: 24px 20px 30px;
+  box-shadow: var(--shadow);
+}
+.torn-card::before,
+.torn-card::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  height: 16px;
+  background:
+    linear-gradient(135deg, var(--cream) 50%, transparent 50%) 0 0/18px 18px
+      repeat-x,
+    linear-gradient(225deg, var(--cream) 50%, transparent 50%) 9px 0/18px 18px
+      repeat-x;
+}
+.torn-card::before {
+  top: -9px;
+}
+.torn-card::after {
+  bottom: -9px;
+  transform: rotate(180deg);
+}
+
+.stamp-frame {
+  width: 60px;
+  background: var(--cream);
+  border: 3px dashed var(--gold);
+  padding: 7px 5px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.stamp-frame .word {
+  font-family: "Special Elite", monospace;
+  font-size: 0.5rem;
+  color: var(--maroon);
+  margin-top: 2px;
+}
+.stamp-heart {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  color: #9c2a37;
+}
+.stamp-heart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.sway {
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.bob {
+  animation: bob 3.5s ease-in-out infinite;
+}
+
+/* ===================== OPENING ===================== */
+#screen-opening {
+  background-image: url("assets/decor/lace-dots-bg.png");
+  background-position: top center;
+}
+#screen-opening .screen-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+.opening-card-wrap {
+  position: relative;
+  width: min(92vw, 560px);
+  aspect-ratio: 1134/630;
+}
+.opening-card-wrap img.kraft-bg {
+  position: absolute;
+  width: 117%;
+  height: auto;
+  object-fit: contain;
+  top: 14%;
+  left: -10%;
+  z-index: 0;
+}
+.opening-card-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10% 14%;
+  text-align: center;
+  z-index: 1;
+}
+.opening-title {
+  font-size: clamp(1.6rem, 7vw, 2.5rem);
+  color: var(--maroon);
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+.opening-sub {
+  font-size: clamp(1.2rem, 5vw, 1.8rem);
+  color: var(--ink);
+  font-weight: 700;
+}
+.scramble-letter {
+  display: inline-block;
+  will-change: transform, opacity;
+  transition:
+    transform 0.9s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.5s ease;
+}
+.opening-deco {
+  position: absolute;
+  bottom: -39%;
+  left: -3%;
+  width: 30%;
+  z-index: 2;
+}
+.opening-lily {
+  position: absolute;
+  bottom: -30%;
+  left: -30%;
+  width: 42%;
+  z-index: 1;
+}
+.opening-stamps {
+  position: absolute;
+  top: 10%;
+  right: -20%;
+  display: flex;
+  gap: 0px;
+  z-index: 2;
+}
+
+.stamp-image {
+  object-fit: contain;
+}
+
+.stamp-1 {
+  position: relative;
+  width: 200px;
+  left: 40px;
+  top: -45px;
+  height: auto;
+  transform: rotate(6deg);
+}
+
+.stamp-2 {
+  position: relative;
+  width: 160px;
+  left: -35px;
+  top: 25px;
+  height: auto;
+  transform: rotate(10deg);
+}
+.tap-continue {
+  margin-top: 26px;
+  top: 90px;
+  font-family: "Special Elite", monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--maroon);
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  padding: 14px 35px;
+  border-radius: 20px;
+  animation: pulse 1.8s infinite ease-in-out;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+#opening-line1 {
+  width: 100%;
+  text-align: center;
+  line-height: 0.85;
+}
+
+.opening-word {
+  display: block;
+  font-family: "Allura", cursive;
+}
+
+.happy-word {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  position: relative;
+  left: -200px;
+  top: 40px;
+}
+
+.birthday-word {
+  font-size: clamp(4rem, 11vw, 7rem);
+  position: relative;
+  left: -23px;
+  top: 55px;
+}
+.name-word {
+  display: block;
+  font-family: "Allura", cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  position: relative;
+  left: 90px;
+  top: 60px;
+}
+/* ===================== OPENING EXIT TRANSITION ===================== */
+
+@keyframes openingSlideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes exitCard {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  30% {
+    transform: rotate(-2deg) scale(1.02);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(40px) rotate(5deg) scale(0.85);
+  }
+}
+
+@keyframes exitDog {
+  0% {
+    opacity: 1;
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  40% {
+    transform: rotate(-8deg) translate(-10px, -10px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(15deg) translate(-120px, 80px);
+  }
+}
+
+@keyframes exitLily {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(25deg) translate(-100px, 80px);
+  }
+}
+
+@keyframes exitStamps {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(100px, -80px) rotate(20deg);
+  }
+}
+
+@keyframes exitButton {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+/* The whole opening page slides down */
+#screen-opening.opening-exit {
+  animation: openingSlideDown 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  z-index: 10;
+}
+
+/* Things on the opening page disappear */
+#screen-opening.opening-exit .opening-card-wrap {
+  animation: exitCard 0.8s ease forwards;
+}
+
+#screen-opening.opening-exit .opening-deco {
+  animation: exitDog 0.8s ease forwards;
+}
+
+#screen-opening.opening-exit .opening-lily {
+  animation: exitLily 0.8s ease forwards;
+}
+
+#screen-opening.opening-exit .opening-stamps {
+  animation: exitStamps 0.7s ease forwards;
+}
+
+#screen-opening.opening-exit .tap-continue {
+  animation: exitButton 0.5s ease forwards;
+}
+/* Page 2 enters from above */
+#screen-hub.hub-enter {
+  animation: hubSlideDown 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes hubSlideDown {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ===================== HUB ===================== */
+#screen-hub .screen-inner {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.hub-tag {
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  padding: 14px 24px;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow);
+}
+.hub-tag .display {
+  font-size: clamp(1.05rem, 4vw, 1.3rem);
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.hub-center-cat {
+  position: absolute;
+  top: 510px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  pointer-events: none;
+  z-index: 2;
+
+  animation: catPopIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+.hub-center-cat img {
+  width: 100%;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+}
+@keyframes catPopIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(-8deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1) rotate(4deg);
+  }
+
+  80% {
+    transform: translate(-50%, -50%) scale(0.95) rotate(-2deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+.hub-cloud {
+  position: absolute;
+  top: 20px;
+  left: 300px;
+  width: 350px;
+  height: auto;
+  transform: translateX(-50%) rotate(-40deg);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.hub-cloud-text {
+  position: absolute;
+  top: 140px;
+  left: 50%;
+  width: 200px;
+  transform: translateX(-50%);
+  z-index: 5;
+
+  text-align: center;
+
+  font-family: "EB Garamond", cursive;
+  font-size: 1.5rem;
+  line-height: 1.35;
+  color: var(--ink);
+
+  pointer-events: none;
+}
+/* ===================== HUB TORN PAPER FRAME ===================== */
+
+#screen-hub {
+  position: fixed;
+  overflow: hidden;
+}
+
+/* Transparent torn-paper overlay */
+#screen-hub .hub-torn-frame {
+  position: absolute;
+  inset: 0;
+
+  width: 115%;
+  height: 115%;
+  left: -8%;
+  top: -7%;
+
+  object-fit: fill;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Keep all Hub content above the paper */
+#screen-hub .screen-inner {
+  position: relative;
+  z-index: 1;
+}
+.gift-grid-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 650px;
+  margin: 0 auto;
+}
+
+.hub-gift {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+
+  cursor: pointer;
+  z-index: 1;
+
+  opacity: 0;
+
+  animation: giftPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+  filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.25));
+
+  transition:
+    filter 0.2s ease,
+    scale 0.2s ease;
+}
+.hub-gift:hover {
+  scale: 1.08;
+
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.35));
+}
+.gift-songs {
+  top: -15px;
+  left: -150px;
+}
+
+.gift-panda {
+  top: -15px;
+  left: 470px;
+}
+
+.gift-photos {
+  top: 175px;
+  left: -350px;
+}
+
+.gift-roses {
+  top: 178px;
+  left: 680px;
+}
+
+.gift-letter {
+  top: 380px;
+  left: -150px;
+}
+
+.gift-cake {
+  top: 380px;
+  left: 470px;
+}
+
+/* ===================== INDIVIDUAL HUB GIFTS ===================== */
+
+.hub-gift {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+
+  cursor: pointer;
+  z-index: 1;
+
+  /* Starting state */
+  opacity: 0;
+  transform: scale(0.5);
+
+  animation: giftPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+@keyframes giftPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-8deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.08) rotate(3deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+.gift-songs {
+  animation-delay: 0.1s;
+}
+
+.gift-panda {
+  animation-delay: 0.4s;
+}
+
+.gift-photos {
+  animation-delay: 0.2s;
+}
+
+.gift-roses {
+  animation-delay: 0.5s;
+}
+
+.gift-letter {
+  animation-delay: 0.3s;
+}
+
+.gift-cake {
+  animation-delay: 0.6s;
+}
+.hub-gift:hover {
+  transform: scale(1.08) rotate(2deg);
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.3));
+}
+
+/* ---------------- gift screen shared header ---------------- */
+.gift-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  position: relative;
+  z-index: 4;
+}
+.back-btn {
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  color: var(--maroon);
+  font-size: 1.1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+}
+.gift-title {
+  font-size: clamp(1.4rem, 6vw, 1.9rem);
+  color: var(--cream);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- Photos ---- */
+/* ================= PHOTOS PAGE LAYOUT ================= */
+
+#screen-photos .photos-layout {
+  position: relative;
+
+  width: 92%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 40px;
+
+  min-height: 75vh;
+}
+#screen-photos .photos-side {
+  position: relative;
+
+  width: 28%;
+  min-width: 260px;
+
+  height: 650px;
+
+  flex-shrink: 0;
+}
+
+#screen-photos {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+}
+
+.photos-bg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 0;
+  pointer-events: none;
+}
+.photos-torn-frame {
+  position: absolute;
+  inset: 0;
+
+  width: 115%;
+  height: 115%;
+  left: -7%;
+  top: -8%;
+
+  object-fit: fill;
+
+  z-index: 1;
+  pointer-events: none;
+}
+.photos-heading {
+  color: var(--cream);
+  font-size: 40px;
+  line-height: 1.3;
+  margin-bottom: 14px;
+  position: absolute;
+  top: -20px;
+  padding-left: 20px;
+  left: -250px;
+  width: 300px;
+}
+#screen-photos .back-btn {
+  position: absolute;
+  top: 30px;
+  left: -370px;
+  width: 60px;
+  height: 60px;
+}
+
+.photos-badges {
+  width: 130px;
+  margin-bottom: 10px;
+}
+.photos-stamp {
+  margin-top: 10px;
+}
+#screen-photos .album-wrap {
+  flex: 2 1 260px;
+  width: 600px;
+  height: auto;
+  position: relative;
+  max-width: 850px;
+  aspect-ratio: 1007/792;
+}
+
+.album-wrap img.album-bg {
+  position: absolute;
+  inset: 0;
+  width: 790px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  left: -190px;
+  top: -280px;
+  height: auto;
+  object-fit: contain;
+}
+.album-slot {
+  position: absolute;
+  width: auto;
+  overflow: hidden;
+}
+.album-slot img {
+  width: 220px;
+  height: 100%;
+  object-fit: cover;
+}
+.slot-1 {
+  left: -64px;
+  top: -183px;
+  width: 300px;
+  height: auto;
+}
+.slot-2 {
+  left: -64px;
+  top: 40px;
+  width: 300px;
+  height: auto;
+}
+.slot-3 {
+  left: 260px;
+  top: -183px;
+  width: 320px;
+  height: auto;
+}
+.slot-4 {
+  left: 260px;
+  top: 45px;
+  width: 300px;
+  height: auto;
+}
+.album-photo-1 {
+  animation: photo1In 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards;
+}
+
+.album-photo-2 {
+  animation: photo2In 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.95s forwards;
+}
+
+.album-photo-3 {
+  animation: photo3In 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s forwards;
+}
+
+.album-photo-4 {
+  animation: photo4In 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.25s forwards;
+}
+
+@keyframes photo1In {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-8deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-1deg);
+  }
+}
+
+@keyframes photo2In {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(7deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(1deg);
+  }
+}
+
+@keyframes photo3In {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(7deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(1deg);
+  }
+}
+
+@keyframes photo4In {
+  from {
+    opacity: 0;
+    transform: scale(0.7) rotate(-7deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-1deg);
+  }
+}
+.photo-cat-heart {
+  position: absolute;
+  z-index: 6;
+  width: 135px;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 4px 5px rgba(30, 10, 5, 0.25));
+}
+
+.photo-cat-baby {
+  width: 160px;
+  left: -360px;
+  top: 230px;
+  transform: rotate(8deg);
+}
+
+.photo-cat-adult {
+  width: 160px;
+  left: -120px;
+  top: 190px;
+  transform: rotate(-8deg);
+}
+#screen-photos .photo-cat-heart {
+  opacity: 0;
+}
+
+.photo-cat-baby {
+  animation:
+    catBabyIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.7s forwards,
+    catBabyFloat 3.5s ease-in-out 1.2s infinite;
+}
+
+.photo-cat-adult {
+  animation:
+    catAdultIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s forwards,
+    catAdultFloat 4s ease-in-out 1.3s infinite;
+}
+
+@keyframes catBabyIn {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-7deg);
+  }
+}
+
+@keyframes catAdultIn {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(20deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(7deg);
+  }
+}
+@keyframes catBabyFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-7deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(-4deg);
+  }
+}
+
+@keyframes catAdultFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(7deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(10deg);
+  }
+}
+#screen-photos .photo-pendant {
+  opacity: 0;
+
+  transform-origin: top center;
+
+  animation:
+    pendantIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards,
+    pendantFloat 4s ease-in-out 1.5s infinite;
+}
+@keyframes pendantIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) rotate(-12deg) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-6deg) scale(1);
+  }
+}
+@keyframes pendantFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+.photo-pendant {
+  position: absolute;
+  width: 500px;
+
+  left: -360px;
+  bottom: -70px;
+
+  z-index: 5;
+
+  transform: rotate(-5deg);
+
+  filter: drop-shadow(0 6px 6px rgba(30, 10, 5, 0.3));
+
+  pointer-events: none;
+}
+/* =========================================
+   PHOTOS PAGE OPENING ANIMATION
+   ========================================= */
+
+/* Torn paper appears first */
+#screen-photos .photos-torn-frame {
+  opacity: 0;
+  animation: photosFrameIn 0.8s ease-out 0.1s forwards;
+}
+
+@keyframes photosFrameIn {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Album comes in from the right */
+#screen-photos .album-wrap {
+  opacity: 0;
+  animation: albumIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+}
+
+@keyframes albumIn {
+  from {
+    opacity: 0;
+    transform: translateX(100px) rotate(4deg) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(0) scale(1);
+  }
+}
+
+/* Heading comes from left */
+#screen-photos .photos-heading {
+  opacity: 0;
+  animation: headingIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+}
+
+@keyframes headingIn {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+/* ---- Music ---- */
+/* ===========================================================
+   MUSIC PAGE
+   =========================================================== */
+
+.music-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* -----------------------------------------------------------
+   MAIN BACKGROUND
+   ----------------------------------------------------------- */
+
+.music-bg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  transform: scale(0.92);
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+   VINYL
+   ----------------------------------------------------------- */
+
+.music-vinyl {
+  position: absolute;
+
+  width: 500px;
+
+  left: 125px;
+  top: 5%;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+   "SONGS THAT REMIND ME OF YOU" PNG
+   ----------------------------------------------------------- */
+
+.music-title-art {
+  position: absolute;
+
+  width: 37%;
+
+  right: 78px;
+  top: 7%;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+   CATS
+   ----------------------------------------------------------- */
+
+.music-cats {
+  position: absolute;
+
+  width: 450px;
+
+  left: 110px;
+  top: 270px;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+   NOTEBOOK
+   ----------------------------------------------------------- */
+
+.music-notebook {
+  position: absolute;
+
+  width: 56%;
+  height: 62%;
+
+  right: 70px;
+  top: 269px;
+
+  z-index: 2;
+}
+
+/* Notebook PNG */
+.music-notebook-bg {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+/* -----------------------------------------------------------
+   SONG LIST INSIDE NOTEBOOK
+   ----------------------------------------------------------- */
+
+.notebook-song-list {
+  position: absolute;
+
+  z-index: 2;
+
+  /*
+    These control where the songs sit
+    INSIDE the notebook.
+  */
+
+  top: 8%;
+  left: 40px;
+
+  width: 95%;
+  height: 90%;
+
+  overflow-y: auto;
+
+  padding: 10px 30px;
+  margin: 2px;
+}
+
+/* Scrollbar */
+
+.notebook-song-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notebook-song-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notebook-song-list::-webkit-scrollbar-thumb {
+  background: var(--maroon);
+  border-radius: 10px;
+}
+
+/* -----------------------------------------------------------
+   SONG ROW
+   ----------------------------------------------------------- */
+
+.song-row {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 13px 5px;
+
+  border-bottom: 1px dashed rgba(58, 35, 19, 0.35);
+
+  animation: fadeInUp 0.5s ease both;
+}
+
+/* Play button */
+
+.song-play {
+  flex-shrink: 0;
+
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--maroon);
+
+  background: var(--cream);
+
+  color: var(--maroon);
+
+  font-size: 0.85rem;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.song-play:hover {
+  transform: scale(1.1);
+}
+
+.song-play:active {
+  transform: scale(0.92);
+}
+
+/* Song information */
+
+.song-meta {
+  min-width: 0;
+}
+
+.song-title {
+  font-family: "Playfair Display", serif;
+
+  font-size: 1.05rem;
+
+  color: var(--ink);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+.song-artist {
+  font-family: "EB Garamond", serif;
+
+  font-size: 0.9rem;
+
+  color: #795548;
+
+  margin-top: 2px;
+}
+/* ===========================================================
+   SONG MESSAGE SCROLL
+   =========================================================== */
+
+.song-message-scroll {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 280px;
+  height: 0;
+
+  transform: translateX(-50%);
+
+  z-index: 20;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.music-rolled-paper {
+  position: absolute;
+  width: 400px;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 19;
+  pointer-events: none;
+}
+
+/* When opened */
+
+.song-message-scroll.show {
+  height: 260px;
+}
+
+/* The actual paper */
+
+.scroll-paper {
+  position: absolute;
+  top: 20px;
+  left: 0;
+
+  width: 100%;
+  height: 250px;
+
+  padding: 65px 35px 35px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(120, 80, 40, 0.08),
+      transparent 12%,
+      transparent 88%,
+      rgba(120, 80, 40, 0.08)
+    ),
+    #f5dfc5;
+
+  box-shadow: 0 8px 15px rgba(30, 10, 5, 0.25);
+
+  /*
+    Torn bottom edge
+  */
+  clip-path: polygon(
+    /* top-left → top-right */ 0 0,
+    100% 0,
+
+    /* right edge going down */ 98% 5%,
+    100% 10%,
+    97% 15%,
+    100% 20%,
+    98% 25%,
+    100% 30%,
+    97% 35%,
+    100% 40%,
+    98% 45%,
+    100% 50%,
+    97% 55%,
+    100% 60%,
+    98% 65%,
+    100% 70%,
+    97% 75%,
+    100% 80%,
+    98% 85%,
+    100% 90%,
+    97% 94%,
+
+    /* bottom edge */ 94% 98%,
+    90% 95%,
+    86% 99%,
+    81% 96%,
+    76% 100%,
+    71% 96%,
+    66% 99%,
+    61% 95%,
+    56% 100%,
+    51% 96%,
+    46% 99%,
+    41% 95%,
+    36% 100%,
+    31% 96%,
+    26% 99%,
+    21% 95%,
+    16% 100%,
+    11% 96%,
+    6% 99%,
+    2% 96%,
+
+    /* left edge going back up */ 0 92%,
+    3% 88%,
+    0 83%,
+    2% 78%,
+    0 73%,
+    3% 68%,
+    0 63%,
+    2% 58%,
+    0 53%,
+    3% 48%,
+    0 43%,
+    2% 38%,
+    0 33%,
+    3% 28%,
+    0 23%,
+    2% 18%,
+    0 13%,
+    3% 8%,
+    0 4%
+  );
+
+  border-left: 1px solid rgba(80, 50, 20, 0.25);
+  border-right: 1px solid rgba(80, 50, 20, 0.25);
+
+  box-shadow: 0 8px 15px rgba(30, 10, 5, 0.25);
+
+  transform-origin: top center;
+}
+
+/* Paper texture */
+
+.scroll-paper::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.18;
+
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 4px,
+    rgba(90, 60, 30, 0.08) 5px
+  );
+}
+
+/* Message */
+
+.scroll-message {
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  font-family: "Dancing Script", cursive;
+
+  font-size: 1.1rem;
+  font-weight: bolder;
+
+  line-height: 1.3;
+
+  color: var(--maroon);
+}
+
+/* -----------------------------------------------------------
+   BACK BUTTON
+   ----------------------------------------------------------- */
+
+.music-back-btn {
+  position: absolute;
+
+  top: 4%;
+  left: 3%;
+
+  z-index: 10;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--gold);
+
+  background: var(--cream);
+
+  color: var(--maroon);
+
+  font-size: 1.2rem;
+
+  cursor: pointer;
+}
+.song-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  border-bottom: 1px solid rgba(122, 22, 32, 0.18);
+  animation: fadeInUp 0.5s ease both;
+}
+.song-row:last-child {
+  border-bottom: none;
+}
+.song-play {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--maroon);
+  color: var(--cream);
+  border: none;
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.song-meta {
+  flex: 1;
+  min-width: 0;
+}
+.song-title {
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+.song-artist {
+  font-size: 0.75rem;
+  color: #6a5a44;
+}
+
+/* ---- Drawing ---- */
+/* =========================================================
+   DRAWING PAGE — THE YANNIE COLLECTION
+   ========================================================= */
+
+/* =========================================================
+   MAIN SCREEN
+   ========================================================= */
+/* =========================================================
+   DRAWING PAGE
+   ========================================================= */
+
+#screen-drawing {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  background: var(--maroon-deep);
+  isolation: isolate;
+}
+
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
+
+.drawing-page {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   VELVET BACKGROUND
+   ========================================================= */
+
+.drawing-bg {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: cover;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   MAIN DRAWING FRAME
+   ========================================================= */
+
+.drawing-frame {
+  position: absolute;
+
+  left: 4%;
+  top: 9%;
+
+  width: 59%;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+/* Drawing-frame PNG already contains the drawing */
+
+.drawing-frame-img {
+  display: block;
+  position: relative;
+
+  width: 700px;
+  left: 190px;
+  top: -40px;
+  height: auto;
+
+  max-width: none;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   RED FLOWER
+   ========================================================= */
+
+.drawing-flower {
+  position: absolute;
+
+  left: 18%;
+  top: 430px;
+
+  width: 200px;
+  max-width: none;
+
+  z-index: 12;
+
+  pointer-events: none;
+
+  transform: rotate(-6deg);
+
+  filter: drop-shadow(0 6px 7px rgba(20, 5, 5, 0.38));
+}
+
+/* =========================================================
+   RIGHT GALLERY CARD
+   ========================================================= */
+
+.gallery-card {
+  position: absolute;
+
+  right: 5%;
+  top: 53%;
+
+  width: 27%;
+
+  z-index: 10;
+
+  transform: rotate(-8deg);
+
+  pointer-events: none;
+}
+
+.gallery-card-img {
+  display: block;
+
+  width: 400px;
+  height: auto;
+  top: -520px;
+  left: -500px;
+  position: relative;
+
+  max-width: none;
+
+  object-fit: contain;
+}
+
+/* =========================================================
+   BOTTOM-RIGHT STAMP PAPER
+   ========================================================= */
+
+.drawing-stamp {
+  position: absolute;
+
+  right: 5%;
+  bottom: 4%;
+
+  width: 30%;
+
+  z-index: 10;
+
+  pointer-events: none;
+}
+
+.drawing-stamp-img {
+  display: block;
+
+  width: 500px;
+  height: auto;
+  left: -280px;
+  top: 90px;
+  position: relative;
+
+  max-width: none;
+
+  object-fit: contain;
+
+  position: relative;
+
+  z-index: 0;
+}
+
+/* =========================================================
+   CAKE ON STAMP PAPER
+   ========================================================= */
+
+.cake-on-paper {
+  position: absolute;
+
+  left: 10%;
+  top: 13%;
+
+  width: 80%;
+  height: 72%;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.cake-on-paper img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 3px 4px rgba(30, 10, 5, 0.18));
+}
+
+/* =========================================================
+   FULL PAGE TORN PAPER
+   ========================================================= */
+
+.drawing-torn-paper {
+  position: absolute;
+
+  inset: 0;
+  left: -7%;
+  top: -8%;
+  width: 115%;
+  height: 115%;
+
+  max-width: none;
+
+  object-fit: fill;
+
+  z-index: 30;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.drawing-back {
+  position: absolute;
+
+  left: -800px;
+  top: 20px;
+
+  z-index: 100;
+
+  width: 46px;
+  height: 46px;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--gold);
+
+  background: var(--cream);
+
+  color: var(--maroon);
+
+  font-size: 1.3rem;
+
+  box-shadow: 0 5px 12px rgba(20, 5, 5, 0.3);
+
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   DRAWING PAGE — OPENING ANIMATION
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   INITIAL STATES
+   --------------------------------------------------------- */
+
+/* Background */
+#screen-drawing.active .drawing-bg {
+  animation: drawingBgIn 0.9s ease-out both;
+}
+
+/* Torn paper */
+#screen-drawing.active .drawing-torn-paper {
+  animation: tornPaperIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.15s;
+}
+
+/* Main drawing */
+#screen-drawing.active .drawing-frame {
+  animation: drawingFrameIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.35s;
+}
+
+/* Red flower */
+#screen-drawing.active .drawing-flower {
+  animation: flowerIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.75s;
+}
+
+/* Gallery card */
+#screen-drawing.active .gallery-card {
+  animation: galleryIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.65s;
+}
+
+/* Stamp paper */
+#screen-drawing.active .drawing-stamp {
+  animation: stampIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.9s;
+}
+
+/* Cake */
+#screen-drawing.active .cake-on-paper {
+  animation: cakeIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 1.35s;
+}
+
+/* Back button */
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+/* Velvet slowly appears */
+
+@keyframes drawingBgIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Torn paper gently unfolds */
+
+@keyframes tornPaperIn {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Main frame drops down slightly */
+
+@keyframes drawingFrameIn {
+  from {
+    opacity: 0;
+    transform: translateY(-45px) rotate(-2deg) scale(0.94);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(5px) rotate(0.4deg) scale(1.01);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+/* Flower pops in */
+
+@keyframes flowerIn {
+  from {
+    opacity: 0;
+    transform: rotate(-18deg) scale(0.45);
+  }
+
+  65% {
+    opacity: 1;
+    transform: rotate(-3deg) scale(1.08);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(-6deg) scale(1);
+  }
+}
+
+/* Gallery card comes from the right */
+
+@keyframes galleryIn {
+  from {
+    opacity: 0;
+    transform: translateX(90px) rotate(4deg) scale(0.9);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateX(-5px) rotate(-9deg) scale(1.02);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) rotate(-8deg) scale(1);
+  }
+}
+
+/* Stamp paper rises from bottom */
+
+@keyframes stampIn {
+  from {
+    opacity: 0;
+    transform: translate(60px, 90px) rotate(7deg) scale(0.85);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-4px, -4px) rotate(-1deg) scale(1.02);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0) scale(1);
+  }
+}
+
+/* Cake has a little playful bounce */
+
+@keyframes cakeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.55) translateY(20px);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.08) translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Back button quietly appears */
+
+@keyframes backButtonIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* =========================================================
+   LETTER PAGE — COMPLETE SCRAPBOOK DESIGN
+   Put this at the VERY BOTTOM of style.css
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   MAIN LETTER SCREEN
+   --------------------------------------------------------- */
+
+#screen-letter {
+  position: relative;
+
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  background: var(--maroon-deep);
+
+  isolation: isolate;
+}
+
+/* ---------------------------------------------------------
+   TORN HEART PAPER — BACKGROUND OVERLAY
+   --------------------------------------------------------- */
+
+#screen-letter .letter-torn-corner {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   MAIN LETTER PAGE
+   --------------------------------------------------------- */
+
+#screen-letter .letter-page {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------
+   MAIN LETTER FRAME
+   --------------------------------------------------------- */
+
+#screen-letter .letter-frame {
+  position: absolute;
+
+  width: 1100px;
+  max-width: 1250px;
+
+  height: auto;
+
+  left: 50%;
+  top: 52%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 10px 18px rgba(20, 5, 5, 0.35));
+}
+
+/* ---------------------------------------------------------
+   LETTER CONTENT AREA
+   This sits ON TOP of the letter-frame PNG
+   --------------------------------------------------------- */
+
+#screen-letter .letter-content {
+  position: absolute;
+
+  left: 50%;
+  top: 52%;
+
+  transform: translate(-50%, -50%);
+
+  width: 72%;
+  height: 65%;
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: visible;
+}
+#screen-letter .letter-scroll-hint {
+  position: absolute;
+
+  bottom: 20px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  font-size: 1.6rem;
+
+  color: var(--maroon);
+
+  opacity: 0.7;
+
+  z-index: 15;
+  pointer-events: none;
+
+  animation: scrollArrow 1.6s ease-in-out infinite;
+}
+@keyframes scrollArrow {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(7px);
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------
+   LETTER TITLE
+   --------------------------------------------------------- */
+
+#screen-letter .letter-title {
+  margin: 0;
+  padding: 0;
+
+  width: 120%;
+  flex-shrink: 0;
+
+  text-align: center;
+
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(1.7rem, 3.8vw, 3.3rem);
+  line-height: 1.1;
+
+  color: var(--maroon);
+
+  position: relative;
+  top: -18px;
+
+  white-space: nowrap;
+
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.35);
+}
+
+/* ---------------------------------------------------------
+   ACTUAL LETTER TEXT
+   --------------------------------------------------------- */
+
+#screen-letter .letter-paper-text {
+  width: 92%;
+
+  margin-top: 25px;
+
+  padding: 5px 10px;
+
+  font-family: "EB Garamond", serif;
+
+  font-size: clamp(1rem, 1.45vw, 1.35rem);
+
+  font-style: italic;
+
+  line-height: 1.7;
+
+  color: var(--ink);
+
+  text-align: left;
+
+  white-space: pre-line;
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color: var(--maroon) transparent;
+
+  flex: 1;
+}
+
+/* Chrome / Edge scrollbar */
+
+#screen-letter .letter-paper-text::-webkit-scrollbar {
+  width: 5px;
+}
+
+#screen-letter .letter-paper-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#screen-letter .letter-paper-text::-webkit-scrollbar-thumb {
+  background: var(--maroon);
+
+  border-radius: 10px;
+}
+
+/* ---------------------------------------------------------
+   SIGNOFF
+   --------------------------------------------------------- */
+
+#screen-letter .letter-signoff {
+  width: 92%;
+
+  margin-top: 30px;
+  position: relative;
+
+  padding-right: 8px;
+  top: 70px;
+
+  text-align: right;
+
+  font-family: "Dancing Script", cursive;
+
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+
+  line-height: 1.2;
+
+  color: var(--maroon);
+
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------
+   ENVELOPE — TOP RIGHT
+   --------------------------------------------------------- */
+
+#screen-letter .letter-envelope {
+  position: absolute;
+
+  width: 22%;
+
+  max-width: 300px;
+
+  height: auto;
+
+  top: 1%;
+  right: 200px;
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 6px 8px rgba(20, 5, 5, 0.3));
+}
+
+/* ---------------------------------------------------------
+   DOVE / BIRD — TOP RIGHT
+   --------------------------------------------------------- */
+
+#screen-letter .letter-dove {
+  position: absolute;
+
+  width: 16%;
+
+  max-width: 260px;
+
+  height: auto;
+
+  top: 14%;
+  right: 170px;
+
+  z-index: 8;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 5px 6px rgba(20, 5, 5, 0.25));
+}
+
+/* ---------------------------------------------------------
+
+   LITTLE P.S. NOTE
+   --------------------------------------------------------- */
+
+#screen-letter .letter-note-wrap {
+  position: absolute;
+
+  width: 18%;
+
+  max-width: 240px;
+
+  height: auto;
+
+  top: 14%;
+  right: 16%;
+
+  z-index: 9;
+
+  transform: rotate(-6deg);
+
+  pointer-events: none;
+}
+
+/* Note image */
+
+#screen-letter .letter-note-wrap img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+/* Text sitting on note */
+
+#screen-letter .letter-note-wrap span {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px;
+  left: 10px;
+  top: -50px;
+  position: relative;
+
+  text-align: center;
+
+  font-family: "Dancing Script", cursive;
+
+  font-size: clamp(0.75rem, 1.2vw, 1.15rem);
+
+  line-height: 1;
+
+  color: var(--ink);
+
+  transform: rotate(-6deg);
+}
+
+/* ---------------------------------------------------------
+   RED LILY — BOTTOM LEFT
+   --------------------------------------------------------- */
+
+#screen-letter .letter-lily {
+  position: absolute;
+
+  width: 310px;
+
+  max-width: 600px;
+
+  height: auto;
+
+  left: 15px;
+  bottom: -18px;
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 6px 7px rgba(20, 5, 5, 0.3));
+}
+
+/* ---------------------------------------------------------
+   BACK BUTTON
+   --------------------------------------------------------- */
+
+#screen-letter .letter-back {
+  position: absolute;
+
+  top: 4%;
+  left: 3%;
+
+  z-index: 20;
+}
+
+/* ---------------------------------------------------------
+   MOBILE / SMALL SCREENS
+   --------------------------------------------------------- */
+
+@media (max-width: 700px) {
+  #screen-letter {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  /* Letter frame */
+
+  #screen-letter .letter-frame {
+    width: 96%;
+
+    top: 51%;
+  }
+
+  /* Content */
+
+  #screen-letter .letter-content {
+    width: 73%;
+    height: 60%;
+
+    top: 51%;
+  }
+
+  /* Title */
+
+  #screen-letter .letter-title {
+    font-size: clamp(1.6rem, 7vw, 2.5rem);
+  }
+
+  /* Letter */
+
+  #screen-letter .letter-paper-text {
+    width: 96%;
+
+    margin-top: 15px;
+
+    padding: 3px 5px;
+
+    font-size: 0.95rem;
+
+    line-height: 1.55;
+  }
+
+  /* Signoff */
+
+  #screen-letter .letter-signoff {
+    font-size: 1.3rem;
+
+    margin-top: 10px;
+  }
+
+  /* Envelope */
+
+  #screen-letter .letter-envelope {
+    width: 28%;
+
+    top: 2%;
+    right: 1%;
+  }
+
+  /* Dove */
+
+  #screen-letter .letter-dove {
+    width: 25%;
+
+    top: 17%;
+    right: -2%;
+  }
+
+  /* Note */
+
+  #screen-letter .letter-note-wrap {
+    width: 24%;
+
+    top: 13%;
+    right: 19%;
+  }
+
+  /* Lily */
+
+  #screen-letter .letter-lily {
+    width: 27%;
+
+    left: 0;
+    bottom: 0;
+  }
+
+  /* Back button */
+
+  #screen-letter .letter-back {
+    top: 3%;
+    left: 3%;
+  }
+}
+
+/* ---------------------------------------------------------
+   VERY SMALL PHONES
+   --------------------------------------------------------- */
+
+@media (max-width: 430px) {
+  #screen-letter .letter-frame {
+    width: 102%;
+  }
+
+  #screen-letter .letter-content {
+    width: 74%;
+    height: 57%;
+  }
+
+  #screen-letter .letter-paper-text {
+    font-size: 0.85rem;
+
+    line-height: 1.45;
+  }
+
+  #screen-letter .letter-envelope {
+    width: 30%;
+  }
+
+  #screen-letter .letter-dove {
+    width: 27%;
+  }
+
+  #screen-letter .letter-note-wrap {
+    width: 26%;
+  }
+
+  #screen-letter .letter-lily {
+    width: 30%;
+  }
+}
+/* =========================================================
+   LETTER PAGE — OPENING ANIMATION
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   INITIAL STATE
+   --------------------------------------------------------- */
+
+/* Main letter starts below the screen */
+#screen-letter .letter-frame {
+  opacity: 0;
+
+  transform: translate(-50%, 100vh) rotate(2deg);
+
+  animation: letterRise 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+}
+
+/* Letter content starts hidden */
+#screen-letter .letter-content {
+  opacity: 0;
+
+  transform: translate(-50%, calc(-50% + 30px));
+
+  animation: letterContentAppear 0.8s ease 1.15s forwards;
+}
+
+/* Envelope */
+#screen-letter .letter-envelope {
+  opacity: 0;
+
+  animation:
+    envelopeEnter 1s ease 0.75s forwards,
+    envelopeFloat 4s ease-in-out 1.75s infinite;
+}
+
+/* Dove */
+#screen-letter .letter-dove {
+  opacity: 0;
+
+  animation:
+    doveEnter 1s ease 1s forwards,
+    doveFloat 4.5s ease-in-out 2s infinite;
+}
+
+/* Lily */
+#screen-letter .letter-lily {
+  opacity: 0;
+
+  animation:
+    lilyEnter 1s ease 0.9s forwards,
+    lilyFloat 4s ease-in-out 1.9s infinite;
+}
+
+/* P.S. note */
+#screen-letter .letter-note-wrap {
+  opacity: 0;
+
+  animation:
+    noteEnter 0.8s ease 1.1s forwards,
+    noteFloat 4s ease-in-out 1.9s infinite;
+}
+
+/* ---------------------------------------------------------
+   LETTER RISING FROM BELOW
+   --------------------------------------------------------- */
+
+@keyframes letterRise {
+  0% {
+    opacity: 0;
+
+    transform: translate(-50%, 100vh) rotate(3deg);
+  }
+
+  65% {
+    opacity: 1;
+
+    transform: translate(-50%, -53%) rotate(-1deg);
+  }
+
+  82% {
+    transform: translate(-50%, -48%) rotate(0.5deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+/* ---------------------------------------------------------
+   LETTER CONTENT APPEARS
+   --------------------------------------------------------- */
+
+@keyframes letterContentAppear {
+  from {
+    opacity: 0;
+
+    transform: translate(-50%, calc(-50% + 30px));
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* ---------------------------------------------------------
+   ENVELOPE ENTER
+   --------------------------------------------------------- */
+
+@keyframes envelopeEnter {
+  from {
+    opacity: 0;
+
+    transform: translateY(-35px) rotate(-8deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------
+   ENVELOPE FLOAT
+   --------------------------------------------------------- */
+
+@keyframes envelopeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+/* ---------------------------------------------------------
+   DOVE ENTER
+   --------------------------------------------------------- */
+
+@keyframes doveEnter {
+  from {
+    opacity: 0;
+
+    transform: translate(40px, -25px) rotate(8deg) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------
+   DOVE FLOAT
+   --------------------------------------------------------- */
+
+@keyframes doveFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(-5px, -8px) rotate(-2deg);
+  }
+
+  50% {
+    transform: translate(-2px, -14px) rotate(2deg);
+  }
+
+  75% {
+    transform: translate(5px, -7px) rotate(-1deg);
+  }
+}
+
+/* ---------------------------------------------------------
+   LILY ENTER
+   --------------------------------------------------------- */
+
+@keyframes lilyEnter {
+  from {
+    opacity: 0;
+
+    transform: translate(-40px, 50px) rotate(-18deg) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------
+   LILY FLOAT / WAVE
+   --------------------------------------------------------- */
+
+@keyframes lilyFloat {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  20% {
+    transform: translate(5px, -8px) rotate(-3deg);
+  }
+
+  40% {
+    transform: translate(10px, -13px) rotate(3deg);
+  }
+
+  60% {
+    transform: translate(5px, -7px) rotate(-2deg);
+  }
+
+  80% {
+    transform: translate(-3px, -3px) rotate(2deg);
+  }
+}
+
+/* ---------------------------------------------------------
+   P.S. NOTE ENTER
+   --------------------------------------------------------- */
+
+@keyframes noteEnter {
+  from {
+    opacity: 0;
+
+    transform: translateY(-25px) rotate(-15deg) scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0) rotate(-6deg) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------
+   P.S. NOTE FLOAT
+   --------------------------------------------------------- */
+
+@keyframes noteFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-3deg);
+  }
+}
+
+/* letter voice note */
+/* =========================================================
+   LETTER VOICE PLAYER
+   ========================================================= */
+
+#screen-letter .letter-voice-player {
+  position: absolute;
+
+  width: 520px;
+  height: 105px;
+
+  left: 50%;
+  bottom: 3%;
+
+  transform: translateX(-50%);
+
+  z-index: 15;
+}
+
+/* ---------------------------------------------------------
+   SONG BAR PNG
+   --------------------------------------------------------- */
+
+#screen-letter .letter-player-frame {
+  position: absolute;
+
+  inset: 0;
+  left: 30px;
+
+  width: 80%;
+  height: 100%;
+
+  object-fit: fill;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------
+   CONTENT ON TOP OF PNG
+   --------------------------------------------------------- */
+
+#screen-letter .letter-player-content {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  display: flex;
+
+  align-items: center;
+  left: 40px;
+
+  padding: 12px 18px;
+
+  gap: 14px;
+}
+
+/* ---------------------------------------------------------
+   PANDA / COVER IMAGE
+   --------------------------------------------------------- */
+
+#screen-letter .letter-player-cover {
+  width: 68px;
+  height: 68px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  border: 2px solid rgba(182, 137, 63, 0.7);
+
+  box-shadow: 0 3px 7px rgba(20, 5, 5, 0.3);
+}
+
+/* ---------------------------------------------------------
+   TEXT
+   --------------------------------------------------------- */
+
+#screen-letter .letter-player-info {
+  min-width: 0;
+
+  flex: 1;
+
+  overflow: hidden;
+}
+
+#screen-letter .letter-player-title {
+  font-family: "Playfair Display", serif;
+
+  font-size: 1.05rem;
+
+  font-weight: 700;
+
+  color: var(--maroon);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+#screen-letter .letter-player-subtitle {
+  margin-top: 4px;
+
+  font-family: "EB Garamond", serif;
+
+  font-size: 0.9rem;
+
+  color: var(--ink);
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+/* ---------------------------------------------------------
+   PLAY / PAUSE BUTTON
+   --------------------------------------------------------- */
+
+#screen-letter .letter-player-button {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+  left: -80px;
+  position: relative;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--gold);
+
+  background: var(--cream);
+
+  color: var(--maroon);
+
+  font-size: 1rem;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  cursor: pointer;
+
+  box-shadow: 0 3px 7px rgba(20, 5, 5, 0.25);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+#screen-letter .letter-player-button:hover {
+  transform: scale(1.08);
+
+  background: #fff4df;
+}
+
+#screen-letter .letter-player-button:active {
+  transform: scale(0.94);
+}
+
+/* ---- Moments / Roses carousel ---- */
+/* =========================================================
+   MOMENTS / ROSES
+   VINTAGE SCRAPBOOK DESIGN
+   ========================================================= */
+
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
+
+#screen-roses {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: var(--maroon-deep);
+}
+
+/* =========================================================
+   PAGE WRAPPER
+   ========================================================= */
+
+.moments-page {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  isolation: isolate;
+}
+
+/* =========================================================
+   BACKGROUND PNG
+   ========================================================= */
+
+.moments-bg {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: cover;
+
+  z-index: 0;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.moments-heading {
+  position: absolute;
+
+  top: 140px;
+  left: 40px;
+
+  z-index: 10;
+
+  color: var(--cream);
+
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(2rem, 4vw, 4rem);
+
+  line-height: 0.9;
+
+  text-align: left;
+
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.45);
+
+  pointer-events: none;
+}
+
+
+.moments-heading-script {
+  display: block;
+
+  margin-left: 30px;
+  white-space: nowrap;
+  margin-top: 8px;
+
+  font-family: "Allura", cursive;
+
+  font-size: 0.9em;
+
+  font-weight: 400;
+}
+.moments-heading-adore {
+  display: block;
+
+  margin-top: 5px;
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 0.8em;
+
+  font-weight: 400;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   MAIN FRAME
+   ========================================================= */
+
+.moments-frame {
+  position: absolute;
+
+  left: 50%;
+  top: 49%;
+
+  width: min(60vw, 900px);
+  aspect-ratio: 1007 / 792;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 5;
+}
+
+/* =========================================================
+   FRAME PNG
+   ========================================================= */
+
+.moments-frame-img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+
+  object-fit: fill;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   PHOTO AREA
+   ========================================================= */
+
+.moments-photo-area {
+  position: absolute;
+
+  /*
+    This is the actual area where
+    your 18 photos appear.
+  */
+
+  left: 8%;
+  top: 12%;
+
+  width: 84%;
+  height: 82%;
+
+  overflow: hidden;
+
+  z-index: 3;
+}
+
+/* =========================================================
+   PHOTO TRACK
+   ========================================================= */
+
+.moments-track {
+  display: flex;
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================================
+   INDIVIDUAL SLIDE
+   ========================================================= */
+
+.rose-slide {
+  position: relative;
+
+  flex: 0 0 100%;
+
+  width: 100%;
+  height: 100%;
+  
+  
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+
+  
+
+  overflow: hidden;
+}
+
+/* =========================================================
+   ROSE PHOTO
+   ========================================================= */
+
+.rose-slide img {
+  display: block;
+
+  width: 100%;
+  height: 88%;
+
+  max-width: none;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   PHOTO TITLE
+   ========================================================= */
+
+.rose-title {
+  width: 200px;
+
+  min-height: 12%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  font-family: "EB Garamond", cursive;
+
+  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+
+  line-height: 1;
+
+  color: var(--maroon);
+
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* =========================================================
+   TOP-RIGHT ENVELOPE
+   ========================================================= */
+
+.moments-envelope {
+  position: absolute;
+
+  width: 260px;
+
+  top: 1%;
+  right: 12%;
+
+  z-index: 8;
+
+  max-width: none;
+
+  transform: rotate(15deg);
+
+  filter: drop-shadow(0 7px 8px rgba(20, 5, 5, 0.3));
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   BIRD
+   ========================================================= */
+
+.moments-bird {
+  position: absolute;
+
+  width: 180px;
+
+  top: 17%;
+  right: 15%;
+
+  z-index: 9;
+
+  max-width: none;
+
+  transform: rotate(3deg);
+
+  filter: drop-shadow(0 5px 6px rgba(20, 5, 5, 0.3));
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   LEFT FLOWER
+   ========================================================= */
+
+.moments-flower-left {
+  position: absolute;
+
+  width: 180px;
+
+  left: 240px;
+  bottom: 16%;
+
+  z-index: 8;
+
+  max-width: none;
+
+  transform: rotate(-30deg);
+
+  filter: drop-shadow(0 7px 8px rgba(20, 5, 5, 0.3));
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   RIGHT FLOWERS
+   ========================================================= */
+
+.moments-flower-right {
+  position: absolute;
+
+  width: 180px;
+
+  right: 250px;
+  bottom: 15%;
+
+  z-index:8;
+
+  max-width: none;
+
+  transform: rotate(20deg);
+
+  opacity: 0.95;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   SMALL FLOWER
+   ========================================================= */
+
+.moments-flower-small {
+  position: absolute;
+
+  width: 200px;
+
+  right: 71%;
+  bottom: 1%;
+
+  z-index: 8;
+
+  max-width: none;
+
+  transform: rotate(-12deg);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.moments-navigation {
+  position: absolute;
+
+  left: 50%;
+  bottom: 5%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  overflow: visible;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 120px;
+
+  z-index: 20;
+}
+
+/* =========================================================
+   NAV BUTTON
+   ========================================================= */
+
+.moments-nav-btn {
+  min-width: 175px;
+
+  padding: 14px 28px;
+
+  border: none;
+
+  background: #d1ad75;
+
+  color: var(--maroon);
+
+  font-family: "Playfair Display", serif;
+
+  font-size: 1.15rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  clip-path: polygon(2% 8%, 98% 2%, 100% 92%, 4% 100%);
+
+  filter: drop-shadow(0 5px 4px rgba(0, 0, 0, 0.65));
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.moments-nav-btn:hover {
+  transform: scale(1.05);
+
+  filter: brightness(1.08)
+        drop-shadow(0px 5px 4px rgba(0,0,0,0.65));
+}
+
+.moments-nav-btn:active {
+  transform: scale(0.96);
+}
+
+/* =========================================================
+   HEART BETWEEN BUTTONS
+   ========================================================= */
+
+.moments-heart {
+  color: #a52b38;
+
+  font-size: 2rem;
+
+  text-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   IMAGE COUNTER
+   ========================================================= */
+
+.moments-count {
+  position: absolute;
+
+  left: 50%;
+  bottom: 3.0%;
+
+  transform: translateX(-50%);
+
+
+  z-index: 20;
+
+  color: var(--maroon);
+
+  font-family: "Special Elite", monospace;
+
+  font-size: 0.9rem;
+
+  opacity: 0.85;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.moments-back {
+  position: absolute;
+
+  top: 4%;
+  left: 3%;
+
+  z-index: 30;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--gold);
+
+  background: var(--cream);
+
+  color: var(--maroon);
+
+  font-size: 1.25rem;
+
+  box-shadow: 0 5px 12px rgba(20, 5, 5, 0.3);
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   PHOTO CHANGE ANIMATION
+   ========================================================= */
+
+.rose-slide.is-entering {
+  animation: roseSlideIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes roseSlideIn {
+  from {
+    opacity: 0;
+
+    transform: translateX(45px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .moments-heading {
+    left: 6%;
+    top: 4%;
+
+    font-size: 2.3rem;
+  }
+
+  .moments-heading-script {
+    margin-left: 80px;
+  }
+
+  .moments-frame {
+    width: 78vw;
+
+    top: 48%;
+  }
+
+  .moments-envelope {
+    width: 170px;
+
+    right: 2%;
+  }
+
+  .moments-bird {
+    width: 130px;
+
+    right: 1%;
+    top: 18%;
+  }
+
+  .moments-flower-left {
+    width: 250px;
+    left: -20px;
+  }
+
+  .moments-flower-right {
+    width: 190px;
+  }
+
+  .moments-flower-small {
+    display: none;
+  }
+
+  .moments-navigation {
+    bottom: 5%;
+
+    gap: 18px;
+  }
+
+  .moments-nav-btn {
+    min-width: 130px;
+
+    font-size: 0.95rem;
+
+    padding: 12px 18px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — PHONE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  #screen-roses {
+    overflow: hidden;
+  }
+
+  .moments-heading {
+    top: 3%;
+    left: 7%;
+
+    font-size: 1.65rem;
+  }
+
+  .moments-heading-script {
+    margin-left: 55px;
+    margin-top: 5px;
+  }
+
+  .moments-frame {
+    width: 94vw;
+
+    top: 48%;
+  }
+
+  .moments-photo-area {
+    left: 8%;
+    top: 9%;
+
+    width: 84%;
+    height: 74%;
+  }
+
+  .rose-slide {
+    padding: 10px 15px 8px;
+  }
+
+  .rose-slide img {
+    height: 75%;
+  }
+
+  .rose-title {
+    font-size: 1.25rem;
+
+    min-height: 20%;
+  }
+
+  .moments-envelope {
+    width: 115px;
+
+    top: 6%;
+    right: -5%;
+  }
+
+  .moments-bird {
+    width: 90px;
+
+    top: 18%;
+    right: -2%;
+  }
+
+  .moments-flower-left {
+    width: 180px;
+
+    left: -35px;
+    bottom: 5%;
+  }
+
+  .moments-flower-right {
+    width: 130px;
+
+    right: -25px;
+    bottom: 10%;
+  }
+
+  .moments-navigation {
+    bottom: 3.5%;
+
+    width: 100%;
+
+    gap: 8px;
+  }
+
+  .moments-nav-btn {
+    min-width: 115px;
+
+    padding: 10px 10px;
+
+    font-size: 0.8rem;
+  }
+
+  .moments-heart {
+    font-size: 1.3rem;
+  }
+
+  .moments-count {
+    bottom: 0.5%;
+  }
+
+  .moments-back {
+    width: 40px;
+    height: 40px;
+
+    font-size: 1rem;
+  }
+}
+/* =========================================================
+   MOMENTS PAGE OPENING
+   ========================================================= */
+
+#screen-roses {
+  animation: momentsPageOpen 0.8s ease-out both;
+}
+
+@keyframes momentsPageOpen {
+
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+/* =========================================================
+   OPENING ANIMATIONS
+   ========================================================= */
+
+.moments-heading {
+  animation:
+    momentsFadeDown 0.8s ease-out 0.15s both;
+}
+
+.moments-frame {
+  animation:
+    momentsFrameIn 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+    0.3s both;
+}
+
+.moments-envelope {
+  animation:
+    momentsPopIn 0.7s ease-out 0.45s both;
+}
+
+.moments-bird {
+  animation:
+    momentsBirdEnter 0.8s ease-out 0.55s both;
+}
+
+.moments-flower-left {
+  animation:
+    momentsSlideLeft 0.8s ease-out 0.5s both;
+}
+
+.moments-flower-right {
+  animation:
+    momentsSlideRight 0.8s ease-out 0.55s both;
+}
+
+.moments-flower-small {
+  animation:
+    momentsPopIn 0.7s ease-out 0.7s both;
+}
+
+.moments-navigation {
+  animation:
+    momentsNavigation 0.7s ease-out 0.8s both;
+}
+@keyframes momentsNavigationIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+
+}
+
+
+.moments-count {
+  animation:
+    momentsFadeUp 0.6s ease-out 0.95s both;
+}
+@keyframes momentsFadeDown {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(-25px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+@keyframes momentsFadeUp {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
+  }
+
+}
+
+
+@keyframes momentsFrameIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -45%)
+      scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+}
+
+
+@keyframes momentsPopIn {
+
+  from {
+    opacity: 0;
+
+    transform:
+      scale(0.7)
+      rotate(-8deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotate(0deg);
+  }
+
+}
+
+
+@keyframes momentsSlideLeft {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-70px)
+      rotate(-12deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      rotate(-4deg);
+  }
+
+}
+
+
+@keyframes momentsSlideRight {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(70px)
+      rotate(15deg);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      rotate(8deg);
+  }
+
+}
+
+
+@keyframes momentsBirdEnter {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(60px)
+      translateY(-30px)
+      rotate(15deg)
+      scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0)
+      translateY(0)
+      rotate(3deg)
+      scale(1);
+  }
+
+}
+
+.moments-flower-small {
+  animation:
+    momentsPopIn 0.7s ease-out 0.7s both,
+    smallFlowerFloat 4s ease-in-out 1.4s infinite;
+}
+
+
+@keyframes smallFlowerFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(-12deg);
+  }
+
+  50% {
+    transform:
+      translateY(-12px)
+      rotate(-8deg);
+  }
+
+}
+.moments-heading {
+  animation:
+    momentsFadeDown 0.8s ease-out 0.15s both,
+    headingFloat 4.5s ease-in-out 1s infinite;
+}
+
+
+@keyframes headingFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-7px);
+  }
+
+}
+.moments-bird {
+  animation:
+    momentsBirdEnter 0.8s ease-out 0.55s both,
+    birdFloat 3.5s ease-in-out 1.4s infinite;
+}
+
+
+@keyframes birdFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0)
+      rotate(3deg);
+  }
+
+  50% {
+    transform:
+      translateY(-10px)
+      translateX(-6px)
+      rotate(6deg);
+  }
+
+}
+
+/* ---- Cake ---- */
+#screen-cake .screen-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+.cake-white {
+  position: fixed;
+  inset: 0;
+  background: #fdfaf3;
+  z-index: -2;
+}
+.cake-red-edge {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 38%;
+  background: var(--maroon-deep);
+  z-index: -1;
+}
+.cake-red-edge::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background:
+    linear-gradient(135deg, var(--maroon-deep) 50%, transparent 50%) 0 0/22px
+      22px repeat-x,
+    linear-gradient(225deg, var(--maroon-deep) 50%, transparent 50%) 11px 0/22px
+      22px repeat-x;
+}
+.cake-wrap {
+  position: relative;
+  width: min(78vw, 300px);
+  margin: 10px auto 26px;
+}
+.candle {
+  position: absolute;
+  top: -34px;
+  width: 6px;
+  height: 34px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    #c23a3a 0 6px,
+    #f7e6c4 6px 12px
+  );
+}
+.flame {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 16px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 50% 70%, #fff3b0, #ffb63b 60%, #ff6a1f);
+  animation: flicker 1.1s infinite ease-in-out;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+.flame.out {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.2);
+}
+.smoke {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.6);
+  opacity: 0;
+}
+.smoke.rise {
+  animation: smokeRise 1.6s ease-out forwards;
+}
+@keyframes smokeRise {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -60px) scale(4);
+  }
+}
+.mic-btn {
+  background: var(--cream);
+  border: 2px solid var(--gold);
+  color: var(--maroon);
+  padding: 12px 22px;
+  border-radius: 30px;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  margin-top: 8px;
+}
+.mic-hint {
+  color: #5a4636;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  font-style: italic;
+}
+.cake-congrats {
+  margin-top: 22px;
+  color: var(--maroon);
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.cake-congrats.show {
+  opacity: 1;
+  transform: none;
+}
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  font-size: 1.4rem;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  z-index: 50;
+}
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+/* =====================================================
+   POST CREDIT MOVIE SEQUENCE
+===================================================== */
+
+.post-credits-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  display: none;
+  text-align: center;
+}
+
+.post-credits-screen.active {
+  display: block;
+}
+
+/* Slight cinematic fade when entering */
+.post-credits-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.95),
+    transparent 15%,
+    transparent 85%,
+    rgba(0,0,0,0.95)
+  );
+  z-index: 5;
+}
+
+/* -----------------------------
+   SCROLLING CREDITS
+----------------------------- */
+
+.credits-scroll {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  padding-bottom: 30vh;
+}
+
+.post-credits-screen.active .credits-scroll {
+  animation: creditsRoll 100s linear forwards;
+}
+
+@keyframes creditsRoll {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-250%);
+  }
+}
+
+.credits-title {
+  margin-bottom: 180px;
+}
+
+.credits-title span {
+  display: block;
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 5px;
+  opacity: 0.65;
+  margin-bottom: 18px;
+}
+
+.credits-title strong {
+  display: block;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 9vw, 4rem);
+  letter-spacing: 4px;
+}
+
+.credit-spacer {
+  height: 120px;
+}
+
+.credit-section {
+  margin: 0 auto 190px;
+  max-width: 700px;
+  padding: 0 25px;
+}
+
+.credit-label {
+  font-family: "Courier New", monospace;
+  font-size: 1.3rem;
+  letter-spacing: 4px;
+  opacity: 0.55;
+  margin-bottom: 18px;
+}
+
+.credit-section h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.8rem, 7vw, 3.2rem);
+  letter-spacing: 2px;
+  margin: 0 0 22px;
+}
+
+.credit-section p:not(.credit-label) {
+  font-family: "Georgia", serif;
+  font-size: clamp(1rem, 3.8vw, 1.3rem);
+  line-height: 1.8;
+  opacity: 0.82;
+}
+
+/* -----------------------------
+   FACT + IMAGE
+----------------------------- */
+
+.fact-with-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 35px;
+  text-align: left;
+}
+
+.fact-with-image img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.fact-with-image h2 {
+  margin-bottom: 10px;
+}
+
+.fact-with-image p {
+  margin: 0;
+}
+
+/* -----------------------------
+   FINAL CREDIT
+----------------------------- */
+
+.final-credit {
+  margin-top: 250px;
+  min-height: 80vh;
+}
+
+.final-credit h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2rem, 8vw, 4rem);
+  letter-spacing: 3px;
+  margin-top: 35px;
+}
+
+/* =====================================================
+   POLICE REVEAL
+===================================================== */
+/* =====================================================
+   POLICE / ARREST REVEAL
+===================================================== */
+
+.police-reveal {
+  position: absolute;
+  inset: 0;
+
+  background: #000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+
+  z-index: 20;
+
+  overflow: hidden;
+}
+
+
+/* Reveal entire police scene */
+
+.police-reveal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* =====================================================
+   POLICE IMAGE
+===================================================== */
+
+.police-image {
+  width: min(65vw, 300px);
+  max-height: 45vh;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  transform: scale(0.7);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+
+.police-image.show {
+  opacity: 1;
+
+  transform: scale(1);
+}
+
+
+/* =====================================================
+   ARREST TEXT
+===================================================== */
+
+.arrest-text {
+  margin-top: 25px;
+
+  padding: 0 20px;
+
+  max-width: 700px;
+}
+
+
+/* EVERYTHING hidden initially */
+
+#arrest-title,
+.arrest-line {
+  opacity: 0;
+
+  transform: translateY(15px);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+
+/* Show animation */
+
+#arrest-title.show,
+.arrest-line.show {
+  opacity: 1;
+
+  transform: translateY(0);
+}
+
+
+/* Main arrest title */
+
+#arrest-title {
+  font-family: "Courier New", monospace;
+
+  font-size: clamp(1.6rem, 7vw, 3.2rem);
+
+  letter-spacing: 3px;
+
+  margin: 10px 0 28px;
+
+  color: #fff;
+}
+
+
+/* Individual dialogue lines */
+
+.arrest-line {
+  font-family: "Georgia", serif;
+
+  font-size: clamp(1rem, 4vw, 1.3rem);
+
+  margin: 12px 0;
+
+  color: rgba(255, 255, 255, 0.92);
+}
+
+
+.arrest-final {
+  font-family: "Playfair Display", serif;
+
+  font-size: clamp(1.25rem, 5vw, 1.8rem);
+
+  margin-top: 28px;
+
+  color: #fff;
+}
+
+
+/* =====================================================
+   FINAL CASE FILE
+===================================================== */
+
+.under-arrest-file {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: min(90vw, 700px);
+
+  max-height: 85vh;
+
+  object-fit: contain;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 50;
+
+  transform:
+    translate(-50%, -50%)
+    scale(2.5)
+    rotate(-8deg);
+}
+
+
+.under-arrest-file.slap {
+  animation: caseFileSlap 0.65s
+    cubic-bezier(0.18, 0.85, 0.25, 1.25)
+    forwards;
+}
+
+
+@keyframes caseFileSlap {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(2.5)
+      rotate(-12deg);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.9)
+      rotate(3deg);
+  }
+
+  75% {
+    transform:
+      translate(-50%, -50%)
+      scale(1.06)
+      rotate(-2deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1)
+      rotate(0deg);
+  }
+}
